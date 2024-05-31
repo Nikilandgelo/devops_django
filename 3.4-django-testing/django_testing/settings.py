@@ -1,5 +1,8 @@
 from pathlib import Path
-from dotenv import dotenv_values
+import os
+from dotenv import load_dotenv
+load_dotenv('../password.env')
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -56,13 +59,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_testing.wsgi.application'
 
-env_values = dotenv_values(Path.joinpath(BASE_DIR, 'password.env'))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_testing',
-        'USER': 'postgres',
-        'PASSWORD': env_values.get('PASSWORD'),
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
     }
 }
 
