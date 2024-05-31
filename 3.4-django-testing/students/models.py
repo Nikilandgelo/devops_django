@@ -7,3 +7,4 @@ class Student(models.Model):
 class Course(models.Model):
     name = models.TextField()
     students = models.ManyToManyField(Student, blank=True)
+    

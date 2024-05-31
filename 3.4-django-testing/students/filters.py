@@ -1,4 +1,4 @@
-from django_filters import filterset, filters
+from django_filters import filterset
 from students.models import Course
 
 class CourseFilter(filterset.FilterSet):
