@@ -28,9 +28,10 @@ jobs:
                 linter: [flake8, pylint, ruff, mypy, pytype, pyright, fixit, pyre]
         steps:
         -   name: Проверка на синтаксические ошибки используя ${{ matrix.linter }}
-            uses: advanced-security/python-lint-code-scanning-action@v1
-            with:
-                linter: ${{ matrix.linter }}
+            # uses: advanced-security/python-lint-code-scanning-action@v1
+            # with:
+            #     linter: 
+            run: python3 ./python_lint.py ${{ matrix.linter }}
     TestingCode:
         name: Создание БД и запуск тестов
         runs-on: ubuntu-latest
