@@ -3,6 +3,9 @@ on:
     push:
         branches:
             - 'main'
+permissions:
+    contents: read
+    statuses: write
 jobs:
     DefaultBuild:
         name: Установка репозитория, Python и зависимостей, синтаксическая проверка кода
