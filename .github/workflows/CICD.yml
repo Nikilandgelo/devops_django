@@ -23,14 +23,12 @@ jobs:
         name: Проверка кода на синтаксические ошибки
         runs-on: ubuntu-latest
         needs: DefaultBuild
-        strategy:
-            matrix:
-                linter: [ruff, mypy, pytype, pyright, fixit]
         steps:
-        -   name: Проверка на синтаксические ошибки используя ${{ matrix.linter }}
-            uses: advanced-security/python-lint-code-scanning-action@v1.1.1
-            with:
-                linter: ${{ matrix.linter }}
+        -   name: Проверка на синтаксические ошибки используя
+            uses: super-linter/super-linter@v6.5.1
+            env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                
     TestingCode:
         name: Создание БД и запуск тестов
         runs-on: ubuntu-latest
