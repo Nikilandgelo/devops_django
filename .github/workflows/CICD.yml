@@ -11,7 +11,7 @@ jobs:
         -   name: Установка репозитория
             uses: actions/checkout@v4
             with:
-                repository: https://github.com/Nikilandgelo/django_homeworks.git
+                repository: https://github.com/Nikilandgelo/devops_django.git
         -   name: Установка Python
             uses: actions/setup-python@v5
             with:
