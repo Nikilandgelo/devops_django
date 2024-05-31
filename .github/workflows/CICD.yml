@@ -5,7 +5,7 @@ on:
             - 'main'
 jobs:
     DefaultBuild:
-        name: Установка репозитория, Python и зависимостей на выполняемую workflow virtual machine
+        name: Установка репозитория, Python и зависимостей, синтаксическая проверка кода
         runs-on: ubuntu-latest
         steps:
         -   name: Установка репозитория
@@ -19,20 +19,14 @@ jobs:
                 cache: 'pip'
         -   name: Установка зависимостей
             run: pip install -r requirements.txt
-    LintCode:
-        name: Проверка кода на синтаксические ошибки
-        runs-on: ubuntu-latest
-        needs: DefaultBuild
-        steps:
-        -   name: Проверка на синтаксические ошибки используя
+        -   name: Проверка кода на синтаксические ошибки
             uses: super-linter/super-linter@v6.5.1
             env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
     TestingCode:
         name: Создание БД и запуск тестов
         runs-on: ubuntu-latest
-        needs: LintCode
+        needs: DefaultBuild
         services:
             postgres_db:
                 image: postgres:14
