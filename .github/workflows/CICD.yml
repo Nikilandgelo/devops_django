@@ -2,7 +2,7 @@ name: CI/CD pipeline
 on:
     push:
         branches:
-            - 'video'
+            - 'main'
 jobs:
     DefaultBuild:
         name: Установка репозитория, Python и зависимостей на выполняемую workflow virtual machine
