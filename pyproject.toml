@@ -1,0 +1,19 @@
+[tool.ruff]
+line-length = 88
+exclude = ["*/__init__.py"]
+
+[tool.mypy]
+python_version = 3.10
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+[tool.pytype]
+python_version = 3.10
+disable = "pyi-error"
+
+[tool.pyright]
+include = ["src"]
+exclude = ["**/__pycache__"]
+
+[tool.fixit]
+exclude = ["**/__pycache__", "build", "dist"]
