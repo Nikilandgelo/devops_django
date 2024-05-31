@@ -28,7 +28,7 @@ jobs:
                 linter: [ruff, mypy, pytype, pyright, fixit]
         steps:
         -   name: Проверка на синтаксические ошибки используя ${{ matrix.linter }}
-            uses: advanced-security/python-lint-code-scanning-action@v1
+            uses: advanced-security/python-lint-code-scanning-action@v1.1.0
             with:
                 linter: ${{ matrix.linter }}
     TestingCode:

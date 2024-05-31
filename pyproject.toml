@@ -1,20 +1,20 @@
 [tool.ruff]
 line-length = 79
 target-version = "py310"
-exclude = [".*", "**/__pycache__/", "*.toml", "*.txt", "*.ini", "**/migrations/"]
+exclude = [".*", "**/__pycache__/", "*.toml", "*.txt", "*.ini", "**/migrations/", "*.yml"]
 
 [tool.mypy]
 python_version = "3.10"
-exclude = [".*", "**/__pycache__/", "*.toml", "*.txt", "*.ini", "**/migrations/"]
+exclude = [".*", "**/__pycache__/", "*.toml", "*.txt", "*.ini", "**/migrations/", "*.yml"]
 
 [tool.pytype]
 python_version = "3.10"
-exclude = [".*", "**/__pycache__/", "*.toml", "*.txt", "*.ini", "**/migrations/"]
+exclude = [".*", "**/__pycache__/", "*.toml", "*.txt", "*.ini", "**/migrations/", "*.yml"]
 
 [tool.pyright]
 pythonVersion = "3.10"
-exclude = [".*", "**/__pycache__/", "*.toml", "*.txt", "*.ini", "**/migrations/"]
+exclude = [".*", "**/__pycache__/", "*.toml", "*.txt", "*.ini", "**/migrations/", "*.yml"]
 
 [tool.fixit]
 python-version = "3.10"
-exclude = [".*", "**/__pycache__/", "*.toml", "*.txt", "*.ini", "**/migrations/"]
+exclude = [".*", "**/__pycache__/", "*.toml", "*.txt", "*.ini", "**/migrations/", "*.yml"]
