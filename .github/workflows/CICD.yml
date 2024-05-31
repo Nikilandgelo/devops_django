@@ -31,6 +31,8 @@ jobs:
             uses: advanced-security/python-lint-code-scanning-action@v1
             with:
                 linter: ${{ matrix.linter }}
+            env: 
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     TestingCode:
         name: Создание БД и запуск тестов
         runs-on: ubuntu-latest
@@ -42,8 +44,8 @@ jobs:
                     POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
                     POSTGRES_USER: ${{ secrets.POSTGRES_USER}}
                     POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-                options: >-
-                    --health-cmd 'pg_isready -U $POSTGRES_USER'
+                options:
+                    --health-cmd pg_isready
                     --health_interval 2s
                     --health_retries 5
         steps:
