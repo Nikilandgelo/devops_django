@@ -3,8 +3,9 @@ import os
 from dotenv import find_dotenv, load_dotenv
 
 
+# проверка запустились локально или нет, env не найден - значит удаленно
 if find_dotenv('../env_variables.env') == '':
-    pass                                            # значит запустились не локально и системные переменные окружения уже есть
+    pass
 else:
     load_dotenv('../env_variables.env')
 
