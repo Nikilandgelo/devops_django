@@ -18,7 +18,7 @@ jobs:
                 image: postgres:14
                 env:
                     POSTGRES_DB: ${{ env.POSTGRES_DB }}
-                    POSTGRES_USER: ${{ env.POSTGRES_USER}}
+                    POSTGRES_USER: ${{ env.POSTGRES_USER }}
                     POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
                 ports:
                 -   5432:5432
@@ -50,5 +50,10 @@ jobs:
         runs-on: ubuntu-latest
         needs: CI
         steps:
-        -   name: Подключение к серверу
-            run: ssh root@80.78.243.14
+        -   name: Настройка SSH
+            run: |
+                mkdir ~/.ssh
+                echo ${{ secrets.PRIVATE_SSH_KEY }} > ~/.ssh/id_rsa
+                ssh-keyscan ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+        -   name: Подключение через SHH
+            run: ssh ${{ secrets.NAME_ON_SERVER }}@${{ secrets.SERVER_IP }}
