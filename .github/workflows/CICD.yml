@@ -38,7 +38,7 @@ jobs:
             run: cd 3.4-django-testing && python manage.py test
         -   name: Общее покрытие тестами
             run: cd 3.4-django-testing && pytest --cov=.
-    CD:
-        name: Деплой изменений на сервер
-        runs-on: ubuntu-latest
-        needs: CI
+    # CD:
+    #     name: Деплой изменений на сервер
+    #     runs-on: ubuntu-latest
+    #     needs: CI
