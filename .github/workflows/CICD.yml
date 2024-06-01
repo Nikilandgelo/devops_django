@@ -38,6 +38,8 @@ jobs:
             run: |
                 pip install flake8
                 flake8 ./3.4-django-testing --exclude=**migrations/,*.ini,.* --max-line-length 91
+        -   name: Проверка работы Postgres
+            run: systemctl status postgres
         -   name: Применение миграций БД
             run: cd 3.4-django-testing && python manage.py migrate
         -   name: Запуск тестов
