@@ -4,38 +4,9 @@ on:
         branches:
             - 'main'
 jobs:
-    DefaultBuild:
+    CI:
         name: Установка репозитория, Python и зависимостей
         runs-on: ubuntu-latest
-        steps:
-        -   name: Установка репозитория
-            uses: actions/checkout@v4.1.6
-            with:
-                repository: Nikilandgelo/devops_django
-        -   name: Установка Python
-            uses: actions/setup-python@v5.1.0
-            with:
-                python-version: '3.10'
-                cache: 'pip'
-        -   name: Установка зависимостей
-            run: pip install -r requirements.txt
-        -   name: Проверка наличия flake8
-            run: pip freeze
-    LintingCode:
-        name: Проверка кода на синтаксические ошибки
-        runs-on: ubuntu-latest
-        needs: DefaultBuild
-        steps:
-        -   name: Print Pip Cache Directory
-            run: ls -la ${{ runner.workspace }}/.cache/pip    
-        -   name: Проверка наличия flake8
-            run: pip freeze
-        -   name: Запуск flake8
-            run: flake8 ./3.4-django-testing
-    TestingCode:
-        name: Создание БД и запуск тестов
-        runs-on: ubuntu-latest
-        needs: DefaultBuild
         services:
             postgres_db:
                 image: postgres:14
@@ -48,6 +19,26 @@ jobs:
                     --health_interval 2s
                     --health_retries 5
         steps:
-        -   run: cd 3.4-django-testing && python manage.py test
-        -   name: Покрытие тестами
+        -   name: Установка репозитория
+            uses: actions/checkout@v4.1.6
+            with:
+                repository: Nikilandgelo/devops_django
+        -   name: Установка Python
+            uses: actions/setup-python@v5.1.0
+            with:
+                python-version: '3.10'
+                cache: 'pip'
+        -   name: Установка зависимостей
+            run: pip install -r requirements.txt
+        -   name: Установка линтера flake8 и проверка кода на синтаксические ошибки
+            run: |
+                pip install flake8
+                flake8 ./3.4-django-testing --exclude=**migrations/,*.ini,.* --max-line-length 91
+        -   name: Запуск тестов
+            run: cd 3.4-django-testing && python manage.py test
+        -   name: Общее покрытие тестами
             run: cd 3.4-django-testing && pytest --cov=.
+    CD:
+        name: Деплой изменений на сервер
+        runs-on: ubuntu-latest
+        needs: CI
