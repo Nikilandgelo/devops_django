@@ -7,6 +7,10 @@ jobs:
     CI:
         name: Continuous integration
         runs-on: ubuntu-latest
+
+        # по факту эта БД Postgres с Докера вообще не нужна,
+        # потому что pytest сам создает тестовую свою, но если unit тесты или
+        # тесты которые требуют реальной БД, то тогда имеет смысл
         env:
             POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
             POSTGRES_USER: ${{ secrets.POSTGRES_USER}}
@@ -22,6 +26,7 @@ jobs:
                     --health-cmd pg_isready
                     --health-interval 2s
                     --health-retries 5
+
         steps:
         -   name: Установка репозитория
             uses: actions/checkout@v4.1.6
@@ -38,12 +43,8 @@ jobs:
             run: |
                 pip install flake8
                 flake8 ./3.4-django-testing --exclude=**migrations/,*.ini,.* --max-line-length 91
-        -   name: Проверка работы Postgres
-            run: systemctl status postgres
-        -   name: Применение миграций БД
-            run: cd 3.4-django-testing && python manage.py migrate
         -   name: Запуск тестов
-            run: cd 3.4-django-testing && python manage.py test
+            run: cd 3.4-django-testing && pytest
         -   name: Общее покрытие тестами
             run: cd 3.4-django-testing && pytest --cov=.
     # CD:
