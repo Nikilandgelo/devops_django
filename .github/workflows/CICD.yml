@@ -36,7 +36,7 @@ jobs:
                 flake8 ./3.4-django-testing --exclude=**migrations/,*.ini,.* --max-line-length 91
         -   name: Проверка на наличие системных переменных
             run: |
-                pip install os
+                import os
                 print(os.environ)
         -   name: Запуск тестов
             run: cd 3.4-django-testing && python manage.py test
