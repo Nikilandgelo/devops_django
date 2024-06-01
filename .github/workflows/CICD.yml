@@ -54,6 +54,7 @@ jobs:
             run: |
                 mkdir ~/.ssh
                 echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_rsa
+                chmod 700 ~/.ssh/id_rsa
                 ssh-keyscan ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
         -   name: Подключение через SHH
             run: ssh ${{ secrets.NAME_ON_SERVER }}@${{ secrets.SERVER_IP }}
