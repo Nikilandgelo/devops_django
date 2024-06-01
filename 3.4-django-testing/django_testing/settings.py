@@ -1,8 +1,12 @@
 from pathlib import Path
 import os
-from dotenv import load_dotenv
-load_dotenv('../password.env')
+from dotenv import find_dotenv, load_dotenv
 
+
+if find_dotenv('../env_variables.env') == '':
+    pass                                            # значит запустились не локально и системные переменные окружения уже есть
+else:
+    load_dotenv('../env_variables.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
