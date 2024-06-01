@@ -10,4 +10,3 @@ class StudentAdmin(admin.ModelAdmin):
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     pass
-              
