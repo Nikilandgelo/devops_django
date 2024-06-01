@@ -38,11 +38,8 @@ jobs:
             run: |
                 pip install flake8
                 flake8 ./3.4-django-testing --exclude=**migrations/,*.ini,.* --max-line-length 91
-        -   name: Проверка на наличие системных переменных
-            run: |
-                echo "$POSTGRES_DB"
-                echo "$POSTGRES_USER"
-                echo "$POSTGRES_PASSWORD"
+        -   name: Применение миграций БД
+            run: cd 3.4-django-testing && python manage.py migrate
         -   name: Запуск тестов
             run: cd 3.4-django-testing && python manage.py test
         -   name: Общее покрытие тестами
