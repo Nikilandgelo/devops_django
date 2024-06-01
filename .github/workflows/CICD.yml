@@ -52,7 +52,7 @@ jobs:
         steps:
         -   name: Настройка SSH
             run: |
-                mkdir ~/.ssh
+                mkdir -p ~/.ssh
                 echo ${{ secrets.PRIVATE_SSH_KEY }} > ~/.ssh/id_rsa
                 ssh-keyscan ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
         -   name: Подключение через SHH
