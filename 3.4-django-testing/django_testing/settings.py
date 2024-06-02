@@ -3,11 +3,11 @@ import os
 from dotenv import find_dotenv, load_dotenv
 
 
-# проверка запустились локально или нет, env не найден - значит удаленно
-if find_dotenv('../env_variables.env') == '':
+# проверка в CI pipeline мы или нет способом рабочим и в Unix и в Windows
+if find_dotenv(f'{os.path.expanduser("~")}/devops_django/env_variables.env') == '':
     pass
 else:
-    load_dotenv('../env_variables.env')
+    load_dotenv(f'{os.path.expanduser("~")}/devops_django/env_variables.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
