@@ -56,11 +56,10 @@ jobs:
                 echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_rsa
                 chmod 700 ~/.ssh/id_rsa
                 ssh-keyscan ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
-        -   name: Установка WSGI сервера
-            run: pip install gunicorn
         -   name: Подключение через SHH, обновление репозитория на сервере и перезапуск WSGI сервера
             run: |
                 ssh ${{ secrets.NAME_ON_SERVER }}@${{ secrets.SERVER_IP }} << 'COMMANDS'
                 git pull origin main
+                source ./devops_django/.venv/bin/activate
                 bash ./devops_django/3.4-django-testing/restart_gunicorn.sh
                 COMMANDS
