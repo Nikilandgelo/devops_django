@@ -59,4 +59,4 @@ jobs:
         -   name: Подключение через SHH
             run: ssh ${{ secrets.NAME_ON_SERVER }}@${{ secrets.SERVER_IP }}
         -   name: Тестирую свое местонахождение
-            run: ls -a
+            run: echo ls -a
