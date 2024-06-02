@@ -50,15 +50,15 @@ jobs:
         runs-on: ubuntu-22.04
         needs: CI
         steps:
-        -   name: Настройка SSH папки внутри юзера runner
+        -   name: Создание и настройка SSH папки внутри юзера runner
             run: |
                 mkdir ~/.ssh
                 echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_rsa
                 chmod 700 ~/.ssh/id_rsa
                 ssh-keyscan ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
         -   name: Подключение через SHH
-            run: ssh ${{ secrets.NAME_ON_SERVER }}@${{ secrets.SERVER_IP }}
-        -   name: Где я?
-            run: pwd
-        -   name: Обновление репозитория
-            run: git pull https://github.com/Nikilandgelo/devops_django.git
+            run: |
+                ssh ${{ secrets.NAME_ON_SERVER }}@${{ secrets.SERVER_IP }} << 'COMMANDS'
+                git pull origin main
+                bash ./devops_django/3.4-django-testing/restart_gunicorn.sh
+                COMMANDS

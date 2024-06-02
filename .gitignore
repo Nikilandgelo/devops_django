@@ -18,3 +18,7 @@ settings_local.py
 
 ### OS specific ###
 .DS_Store
+
+### Servers file ###
+gunicorn_config.py
+restart_gunicorn.sh
