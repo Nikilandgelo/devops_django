@@ -59,7 +59,8 @@ jobs:
         -   name: Подключение через SHH, обновление репозитория на сервере и перезапуск WSGI сервера
             run: |
                 ssh ${{ secrets.NAME_ON_SERVER }}@${{ secrets.SERVER_IP }} << 'COMMANDS'
+                cd devops_django
                 git pull origin main
-                source ./devops_django/.venv/bin/activate
-                bash ./devops_django/3.4-django-testing/restart_gunicorn.sh
+                source .venv/bin/activate
+                bash ./3.4-django-testing/restart_gunicorn.sh
                 COMMANDS
