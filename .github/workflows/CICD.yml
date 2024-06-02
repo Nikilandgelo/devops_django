@@ -22,7 +22,7 @@ jobs:
                     POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
                 ports:
                 -   5432:5432
-                options: >-
+                options: |
                     --health-cmd pg_isready
                     --health-interval 2s
                     --health-retries 5
@@ -47,10 +47,10 @@ jobs:
             run: cd 3.4-django-testing && pytest --cov=.
     CD:
         name: Continuous delivery
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         needs: CI
         steps:
-        -   name: Настройка SSH
+        -   name: Настройка SSH папки внутри юзера runner
             run: |
                 mkdir ~/.ssh
                 echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_rsa
@@ -58,3 +58,5 @@ jobs:
                 ssh-keyscan ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
         -   name: Подключение через SHH
             run: ssh ${{ secrets.NAME_ON_SERVER }}@${{ secrets.SERVER_IP }}
+        -   name: Тестирую свое местонахождение
+            run: ls -a
